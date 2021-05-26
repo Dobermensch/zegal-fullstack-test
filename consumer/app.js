@@ -32,8 +32,9 @@ let main = async (io) => {
     channelWrapper.addSetup(function(channel) {
         return Promise.all([
             channel.consume(q, (msg) => {
-                const data = JSON.parse(msg.content.toString()); 
-                console.log('received ' + data.message);
+                const message_string = msg.content.toString()
+                const data = JSON.parse(message_string); 
+                console.log('received ' + message_string);
                 if (data.priority >= 7) {
                   io.emit("consumer_push_message", data);
                 }
